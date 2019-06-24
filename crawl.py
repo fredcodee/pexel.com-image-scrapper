@@ -12,7 +12,7 @@ sleep(3)
 
 #to search keyword
 searchBar = browser.find_element_by_id("search")
-searchBar.send_keys("cock")
+searchBar.send_keys("cock") #<<<--------- WORD TO SEARCH
 searchBar.send_keys(Keys.ENTER)
 sleep(3)
 
@@ -21,7 +21,15 @@ hw_results = browser.find_elements_by_class_name("rd__tabs")[0].text
 hw_results = "%s photos found " % (hw_results.split(" ")[0])
 print(hw_results)
 
-#ask user how many images they want to dowload
+#load images
+lenOfPage = browser.execute_script("window.scrollTo(0, document.body.scrollHeight);var lenOfPage=document.body.scrollHeight;return lenOfPage;")
+match = False
+while(match == False):
+  lastCount = lenOfPage
+  sleep(3)
+  lenOfPage = browser.execute_script("window.scrollTo(0, document.body.scrollHeight);var lenOfPage=document.body.scrollHeight;return lenOfPage;")
+  if lastCount == lenOfPage:
+    match = True
 
 #get imgages
 url_contents = soup(browser.page_source, "html.parser")
@@ -34,7 +42,7 @@ downloadable_imgs = "%s photos can be downloaded"% (len(links))
 print(downloadable_imgs)
 
 #download
-'''count = 0
+count = 0
 for link in links:
   try:
     link=link.split("?")[0]
@@ -45,7 +53,7 @@ for link in links:
     count += 1
   except:
     print("error, cant download this image...")    
-print("Total images downloaded:", count)'''
+print("Total images downloaded:", count)
 
 
 browser.quit()
