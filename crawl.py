@@ -1,11 +1,19 @@
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
+from selenium.webdriver.chrome.options import Options
 from bs4 import BeautifulSoup as soup
 import requests
 from time import sleep
 
-CHROMEDRIVER_PATH ="C:\\Users\\Windows 10 Pro\\Downloads\\chromedriver"
-browser = webdriver.Chrome(CHROMEDRIVER_PATH)
+CHROMEDRIVER_PATH = "C:\\Users\\Windows 10 Pro\\Downloads\\chromedriver"
+options = Options()
+options.add_argument("--headless")  # Runs Chrome in headless mode.
+options.add_argument('--no-sandbox')  # Bypass OS security model
+options.add_argument('--disable-gpu')  # applicable to windows os only
+options.add_argument('start-maximized')
+options.add_argument('disable-infobars')
+options.add_argument("--disable-extensions")
+browser = webdriver.Chrome(CHROMEDRIVER_PATH, options=options)
 
 browser.get("https://www.pexels.com")
 sleep(3)
